@@ -11,10 +11,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.requestreply.ReplyingKafkaTemplate;
 import org.springframework.kafka.requestreply.RequestReplyFuture;
 import org.springframework.kafka.support.SendResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -29,8 +26,6 @@ public class CheckoutController {
     private KafkaTemplate<String, SaleRequestFactory> saleRequestFactoryKafkaTemplate;
     private ReplyingKafkaTemplate<String, SaleRequestFactory, SaleResponseFactory> requestReplyKafkaTemplate;
 
-    private static String topic = "tp-sale";
-
     @Autowired
     public CheckoutController(KafkaTemplate<String, SaleRequestFactory> saleRequestFactoryKafkaTemplate,
                               ReplyingKafkaTemplate<String, SaleRequestFactory, SaleResponseFactory> requestReplyKafkaTemplate){
@@ -44,13 +39,13 @@ public class CheckoutController {
         SaleRequestFactory obj = new SaleRequestFactory();
         obj.setId(100);
 
-        ProducerRecord<String, SaleRequestFactory> record = new ProducerRecord<>("tp-sale", obj);
+        ProducerRecord<String, SaleRequestFactory> record = new ProducerRecord<>("tp-sale.request", obj);
         RequestReplyFuture<String, SaleRequestFactory, SaleResponseFactory> replyFuture = requestReplyKafkaTemplate.sendAndReceive(record);
         SendResult<String, SaleRequestFactory> sendResult = replyFuture.getSendFuture().get(10, TimeUnit.SECONDS);
         ConsumerRecord<String, SaleResponseFactory> consumerRecord = replyFuture.get(10, TimeUnit.SECONDS);
 
 
-        SaleResponseFactory value = (SaleResponseFactory) consumerRecord.value();
+        SaleResponseFactory value = consumerRecord.value();
         System.out.println("!!!!!!!!!!!! " + value.getUnique_id());
 
 

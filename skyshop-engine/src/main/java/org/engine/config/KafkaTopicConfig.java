@@ -26,7 +26,9 @@ public class KafkaTopicConfig {
     // This section is used to create all Kafka Topics if they are missing into Kafka server
 
     @Bean
-    public NewTopic topic1() {
-        return new NewTopic("test", 1, (short) 1);
+    public NewTopic replyTopic() {
+
+        return new NewTopic("tp-sale.reply", 1, (short) 1);
+
     }
 }
