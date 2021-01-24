@@ -1,0 +1,29 @@
+logging:
+    file:
+        name: ${java.io.tmpdir}/application.log
+    level:
+        com:
+            backend: DEBUG
+        org:
+            springframework: DEBUG
+            springframework.web: DEBUG
+server:
+    port: 8090
+    servlet:
+        context-path: /engine
+security:
+    ignored: /**
+spring:
+    profiles:
+    data:
+        rest:
+            basePath: /engine
+    jackson:
+        default-property-inclusion: non_null
+    jmx:
+        enabled: false
+kafka:
+    bootstrapAddress: 127.0.0.1:9092
+info:
+    build:
+        version: 1.0

@@ -39,8 +39,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.skyshop.plugin</groupId>
-            <artifactId>skyshop-plugin</artifactId>
+            <groupId>org.skyshop.shared.plugin</groupId>
+            <artifactId>skyshop-shared-plugin</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
