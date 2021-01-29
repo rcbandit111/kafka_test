@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class AuthResponseFactorySerializer implements Serializable, Serializer<AuthResponseFactory> {
+public class RequestFactorySerializer implements Serializable, Serializer<Object> {
 
     @Override
-    public byte[] serialize(String topic, AuthResponseFactory data)
+    public byte[] serialize(String topic, Object data)
     {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try
@@ -18,11 +18,11 @@ public class AuthResponseFactorySerializer implements Serializable, Serializer<A
             ObjectOutputStream outputStream = new ObjectOutputStream(out);
             outputStream.writeObject(data);
             out.close();
+            return out.toByteArray();
         }
         catch (IOException e)
         {
             throw new RuntimeException("Unhandled", e);
         }
-        return out.toByteArray();
     }
 }

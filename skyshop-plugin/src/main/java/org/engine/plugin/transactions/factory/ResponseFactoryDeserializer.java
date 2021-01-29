@@ -7,23 +7,23 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 
-public class AuthRequestFactoryDeserializer implements Serializable, Deserializer<AuthRequestFactory> {
+public class ResponseFactoryDeserializer implements Serializable, Deserializer<AuthResponseFactory> {
 
     @Override
-    public AuthRequestFactory deserialize(String topic, byte[] data)
+    public AuthResponseFactory deserialize(String topic, byte[] data)
     {
-        AuthRequestFactory authRequestFactory = null;
+        AuthResponseFactory authResponseFactory = null;
         try
         {
             ByteArrayInputStream bis = new ByteArrayInputStream(data);
             ObjectInputStream in = new ObjectInputStream(bis);
-            authRequestFactory = (AuthRequestFactory) in.readObject();
+            authResponseFactory = (AuthResponseFactory) in.readObject();
             in.close();
         }
         catch (IOException | ClassNotFoundException e)
         {
             throw new RuntimeException("Unhandled", e);
         }
-        return authRequestFactory;
+        return authResponseFactory;
     }
 }

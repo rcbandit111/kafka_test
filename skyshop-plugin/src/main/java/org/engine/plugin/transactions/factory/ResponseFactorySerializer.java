@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class AuthRequestFactorySerializer implements Serializable, Serializer<AuthRequestFactory> {
+public class ResponseFactorySerializer implements Serializable, Serializer<AuthResponseFactory> {
 
     @Override
-    public byte[] serialize(String topic, AuthRequestFactory data)
+    public byte[] serialize(String topic, AuthResponseFactory data)
     {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try
